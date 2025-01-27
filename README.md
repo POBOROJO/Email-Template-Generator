@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Professional Email Generator
+
+A Next.js application that generates professional emails using Google's Gemini AI. The app helps users create well-structured emails for different purposes like meeting requests, follow-ups, and thank you notes.
+
+## Features
+
+- 🎯 Purpose-specific email generation
+- 💡 Smart key points integration
+- 🎨 Clean, modern UI with Tailwind CSS
+- 🌓 Built-in dark mode support
+- 🔒 Secure API handling with rate limiting
+- ⚡ Edge runtime for optimal performance
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Google Gemini AI
+- LangChain
+- React Hook Form with Zod validation
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17 or later
+- A Google API key for Gemini AI (get it from [Google AI Studio](https://makersuite.google.com/app/apikey))
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/email-generator.git
+cd email-generator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+   - Copy `.env.example` to `.env.local`
+   - Add your Google API key:
+```bash
+GOOGLE_API_KEY=your_api_key_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Enter the recipient's name
+2. Select the email purpose (Meeting Request, Follow Up, or Thank You)
+3. Enter key points for the email (comma-separated)
+4. Click "Generate Email"
+5. Copy and customize the generated email as needed
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+### Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+When deploying, make sure to set the following environment variable in your deployment platform:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `GOOGLE_API_KEY`: Your Google Gemini AI API key
+
+### Deploy on Vercel
+
+The easiest way to deploy the app is using [Vercel](https://vercel.com):
+
+1. Push your code to a Git repository
+2. Import the project in Vercel
+3. Add the environment variable in Vercel's project settings
+4. Deploy!
+
+## Security Features
+
+- API key is securely stored server-side
+- Rate limiting to prevent abuse (5 requests per minute per IP)
+- Environment variables properly secured
+- Edge runtime for enhanced security and performance
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch: `git push origin feature/AmazingFeature`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+Key points:
+- ✅ You can share and adapt the code
+- ✅ You must give appropriate credit
+- ❌ Commercial use requires explicit permission from the copyright holder
+
+See the [LICENSE](LICENSE) file for details.
