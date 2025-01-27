@@ -4,15 +4,38 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { emailSchema, EmailSchema } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+interface EmailResponse {
+  email: string;
+}
+
+interface ErrorResponse {
+  error: string;
+}
 
 export default function Home() {
   const [generatedEmail, setGeneratedEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<EmailSchema>({
     resolver: zodResolver(emailSchema),
@@ -26,6 +49,8 @@ export default function Home() {
   const onSubmit = async (data: EmailSchema) => {
     try {
       setIsLoading(true);
+      setGeneratedEmail("");
+
       const response = await fetch("/api/generate-email", {
         method: "POST",
         headers: {
@@ -35,14 +60,18 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to generate email");
+        const errorData: ErrorResponse = await response.json();
+        throw new Error(errorData.error || "Failed to generate email");
       }
 
-      const { email } = await response.json();
-      setGeneratedEmail(email);
+      const successData: EmailResponse = await response.json();
+      setGeneratedEmail(successData.email);
     } catch (error) {
-      form.setError("root", {
-        message: error instanceof Error ? error.message : "Failed to generate email",
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description:
+          error instanceof Error ? error.message : "Failed to generate email",
       });
     } finally {
       setIsLoading(false);
@@ -51,7 +80,7 @@ export default function Home() {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <motion.h1 
+      <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-3xl font-bold mb-8 text-center"
@@ -81,14 +110,19 @@ export default function Home() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email Purpose</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select purpose" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Meeting Request">Meeting Request</SelectItem>
+                    <SelectItem value="Meeting Request">
+                      Meeting Request
+                    </SelectItem>
                     <SelectItem value="Follow Up">Follow Up</SelectItem>
                     <SelectItem value="Thank You">Thank You</SelectItem>
                   </SelectContent>
@@ -121,7 +155,9 @@ export default function Home() {
           </Button>
 
           {form.formState.errors.root && (
-            <p className="text-red-500 text-sm">{form.formState.errors.root.message}</p>
+            <p className="text-red-500 text-sm">
+              {form.formState.errors.root.message}
+            </p>
           )}
         </form>
       </Form>
