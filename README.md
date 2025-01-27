@@ -7,7 +7,6 @@ A Next.js application that generates professional emails using Google's Gemini A
 - 🎯 Purpose-specific email generation
 - 💡 Smart key points integration
 - 🎨 Clean, modern UI with Tailwind CSS
-- 🌓 Built-in dark mode support
 - 🔒 Secure API handling with rate limiting
 - ⚡ Edge runtime for optimal performance
 
