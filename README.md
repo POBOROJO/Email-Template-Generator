@@ -12,7 +12,7 @@ A Next.js application that generates professional emails using Google's Gemini A
 
 ## Tech Stack
 
-- Next.js 14 (App Router)
+- Next.js 15 (App Router)
 - TypeScript
 - Tailwind CSS
 - Google Gemini AI
