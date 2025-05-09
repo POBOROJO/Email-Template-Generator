@@ -1,4 +1,4 @@
-import  {TEMPLATE}  from "@/lib/template";
+import  {EMAIL_TEMPLATE}  from "@/lib/templates";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { NextResponse } from "next/server";
@@ -9,7 +9,7 @@ export async function POST(req: Request){
     try{
         const {recipientName, purpose, keyPoints} = await req.json();
 
-        const prompt = PromptTemplate.fromTemplate(TEMPLATE);
+        const prompt = PromptTemplate.fromTemplate(EMAIL_TEMPLATE);
         const model = new ChatGoogleGenerativeAI({
             modelName:"gemini-2.0-flash",
             temperature: 0.7,

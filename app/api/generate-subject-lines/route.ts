@@ -18,10 +18,31 @@ export async function POST(req: Request) {
     const response = await chain.invoke({ description });
 
     // Convert markdown bold to HTML bold and filter empty lines
-    const subjectLines = response.content
+    let textContent = "";
+    if (typeof response.content === "string") {
+      textContent = response.content;
+    } else {
+      // Assuming response.content is an array of content parts (MessageContentComplex[])
+      textContent = response.content
+        .filter(
+          (part): part is { type: "text"; text: string } =>
+            typeof part === "object" &&
+            part !== null &&
+            "type" in part &&
+            part.type === "text" &&
+            "text" in part &&
+            typeof part.text === "string"
+        )
+        .map((part) => part.text)
+        .join(""); // Join text parts. Subsequent .split('\n') will handle line breaks.
+    }
+
+    const subjectLines = textContent
       .split("\n")
-      .filter((line) => line.trim() !== "")
-      .map((line) => line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"));
+      .filter((line: string) => line.trim() !== "")
+      .map((line: string) =>
+        line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      );
 
     return NextResponse.json({ subjectLines });
   } catch (error) {
@@ -32,4 +53,3 @@ export async function POST(req: Request) {
     );
   }
 }
- 
