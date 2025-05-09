@@ -11,7 +11,7 @@ export async function POST(req: Request){
 
         const prompt = PromptTemplate.fromTemplate(TEMPLATE);
         const model = new ChatGoogleGenerativeAI({
-            modelName:"gemini-1.5-flash",
+            modelName:"gemini-2.0-flash",
             temperature: 0.7,
         });
         const chain = prompt.pipe(model);
