@@ -1,6 +1,3 @@
-
----
-
 # Professional Email Generator
 
 A Next.js SaaS application that leverages Google's Gemini AI to help users create professional emails, convert email tones, personalize cold emails, and generate catchy subject lines. With a sleek landing page, user authentication, and a history view, this tool is designed to streamline email communication for professionals.
@@ -25,6 +22,74 @@ A Next.js SaaS application that leverages Google's Gemini AI to help users creat
 - **Backend**: Google Gemini AI, LangChain, Prisma, PostgreSQL
 - **Authentication**: NextAuth.js with GitHub provider
 - **Deployment**: Edge runtime for optimal performance
+
+## Architecture Diagrams
+
+### System Architecture
+
+```mermaid
+flowchart TB
+    subgraph "Frontend"
+        LandingPage["Landing Page"]
+        Dashboard["Dashboard"]
+        Forms["Form Components"]
+    end
+    
+    subgraph "API Layer"
+        NextJSAPI["Next.js API Routes"]
+    end
+    
+    subgraph "AI Integration"
+        LangChain["LangChain"]
+        GeminiAI["Google Gemini AI"]
+    end
+    
+    User((User)) --> LandingPage
+    User --> Dashboard
+    Dashboard --> Forms
+    Forms --> NextJSAPI
+    NextJSAPI --> LangChain
+    LangChain --> GeminiAI
+    GeminiAI --> LangChain
+    LangChain --> NextJSAPI
+    NextJSAPI --> Forms
+```
+
+### Data Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Form
+    participant API
+    participant LangChain
+    participant GeminiAI
+    
+    User->>Form: Enters form data
+    Form->>Form: Validates data with Zod
+    Form->>API: Submits validated data
+    API->>LangChain: Constructs prompt with template
+    LangChain->>GeminiAI: Sends prompt to model
+    GeminiAI->>LangChain: Returns generated text
+    LangChain->>API: Returns formatted response
+    API->>Form: Returns AI-generated content
+    Form->>User: Displays result
+```
+
+### User Experience Flow
+
+```mermaid
+graph TD
+    A[Landing Page] -->|Try Now| B[Dashboard]
+    B -->|Tab 1| C[Email Generator]
+    B -->|Tab 2| D[Tone Converter]
+    B -->|Tab 3| E[Cold Email Personalizer]
+    B -->|Tab 4| F[Subject Line Generator]
+    C -->|Submit Form| G[Generated Email]
+    D -->|Submit Form| H[Converted Email]
+    E -->|Submit Form| I[Personalized Cold Email]
+    F -->|Submit Form| J[Subject Line Options]
+```
 
 ## Getting Started
 
@@ -79,7 +144,7 @@ A Next.js SaaS application that leverages Google's Gemini AI to help users creat
    - **Email Generator**: Enter recipient details, select a purpose, and provide key points to generate a professional email.
    - **Tone Converter**: Paste an email and choose a tone (formal, casual, friendly) to convert it.
    - **Cold Email Personalizer**: Input recipient and sender details to create tailored cold emails.
-   - **Subject Line Generator**: Describe your email’s purpose to generate effective subject lines.
+   - **Subject Line Generator**: Describe your email's purpose to generate effective subject lines.
 3. **View History**: Go to `/dashboard/history` to see your saved emails and subject lines.
 4. **Copy & Customize**: Use the generated content directly or tweak it as needed.
 
@@ -99,7 +164,7 @@ When deploying, set the following environment variables in your deployment platf
 
 1. Push your code to a Git repository.
 2. Import the project in Vercel.
-3. Add the environment variables in Vercel’s project settings.
+3. Add the environment variables in Vercel's project settings.
 4. Deploy the app and access it at your provided URL.
 
 ## Security Features
@@ -131,7 +196,8 @@ See the [LICENSE](LICENSE) file for details.
 ---
 
 ### **Changes Made to the README**
-1. **Project Description**: Updated to reflect the app’s evolution into a SaaS with multiple tools and a landing page.
+
+1. **Project Description**: Updated to reflect the app's evolution into a SaaS with multiple tools and a landing page.
 2. **Features**: Added the new tools (Tone Converter, Cold Email Personalizer, Subject Line Generator), history view, authentication, and database storage.
 3. **Tech Stack**: Included Prisma, PostgreSQL, NextAuth.js, and Framer Motion.
 4. **Prerequisites**: Added PostgreSQL and GitHub OAuth requirements.
