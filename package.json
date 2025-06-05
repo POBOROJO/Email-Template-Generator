@@ -33,7 +33,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@stagewise/toolbar-next": "^0.2.0",
+    "@stagewise/toolbar-next": "^0.4.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

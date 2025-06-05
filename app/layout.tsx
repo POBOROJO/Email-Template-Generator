@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
+import { StagewiseToolbarWrapper } from "@/components/stagewise-toolbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,10 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          {/* Stagewise toolbar - only in development */}
+          {process.env.NODE_ENV === "development" && (
+            <StagewiseToolbarWrapper />
+          )}
         </ThemeProvider>
       </body>
     </html>
