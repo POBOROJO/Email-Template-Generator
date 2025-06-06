@@ -7,7 +7,6 @@ import { ColdEmailPersonalizerForm } from "@/components/ColdEmailPersonalizerFor
 import { SubjectLineGeneratorForm } from "@/components/SubjectLineGeneratorForm";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("email-generator");
@@ -18,7 +17,6 @@ export default function Dashboard() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Email Tools</h1>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <Link href="/">
               <Button variant="outline">Back to Home</Button>
             </Link>

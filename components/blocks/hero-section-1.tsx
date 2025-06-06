@@ -6,7 +6,7 @@ import { ArrowRight, ChevronRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Squares } from "@/components/ui/squares-background";
 
 const transitionVariants = {
   item: {
@@ -47,6 +47,17 @@ export function HeroSection() {
               aria-hidden
               className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--background)_75%)]"
             />
+            <div className="absolute inset-0 -z-10 overflow-hidden">
+              <div className="absolute inset-0 bg-[#060606]/60">
+                <Squares
+                  direction="diagonal"
+                  speed={0.5}
+                  squareSize={40}
+                  borderColor="#333"
+                  hoverFillColor="#222"
+                />
+              </div>
+            </div>
             <div className="mx-auto max-w-7xl px-6">
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
@@ -103,7 +114,7 @@ export function HeroSection() {
                       size="lg"
                       className="rounded-xl px-5 text-base"
                     >
-                      <Link href="/dashboard">
+                      <Link href="/tool">
                         <span className="text-nowrap">Try Now</span>
                       </Link>
                     </Button>
@@ -338,7 +349,6 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <ThemeToggle />
                 <Button
                   asChild
                   variant="outline"
