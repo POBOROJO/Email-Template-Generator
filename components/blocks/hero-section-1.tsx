@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import { Squares } from "@/components/ui/squares-background";
+import { LampDemo } from "@/components/ui/lamp-demo";
 
 const transitionVariants = {
   item: {
@@ -259,6 +260,15 @@ export function HeroSection() {
                   width="auto"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Lamp Demo Section */}
+        <section className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto max-w-[1400px]">
+              <LampDemo />
             </div>
           </div>
         </section>
